@@ -18,4 +18,4 @@ jobs:
       
       - name: Run Bash Script
         run: |
-          bash main.sh $PAYLOAD
+          bash main.sh "$PAYLOAD"
