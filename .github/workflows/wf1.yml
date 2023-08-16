@@ -1,10 +1,8 @@
-name: Run bash script with Payload
-
+name: Run SG-CLI with Payload
 on:
   push:
     branches:
       - main
-
 jobs:
   run_scripts:
     runs-on: ubuntu-latest
@@ -28,9 +26,4 @@ jobs:
             export SG_BASE_URL=$SG_BASE_URL
             export SG_API_TOKEN=$SG_API_TOKEN
             export SG_DASHBOARD_URL=$SG_DASHBOARD_URL
-            echo "SG_BASE_URL is ${{ vars.SG_BASE_URL }}"
-            echo "SG_DASHBOARD_URL is ${{ vars.SG_DASHBOARD_URL }}"
-            echo "SG_API_TOKEN is ${{ secrets.SG_API_TOKEN }}"
-            echo "SG_ORG is ${{ secrets.SG_ORG }} "
-            echo "SG_WORKFLOW_GROUP is ${{ secrets.SG_WORKFLOW_GROUP }}"
             bash sg-cli stack create --org ${{ secrets.SG_ORG }} --workflow-group ${{ secrets.SG_WORKFLOW_GROUP }} -- payload.json
