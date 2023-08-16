@@ -21,6 +21,9 @@ jobs:
           port: ${{ secrets.PORT }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            whoami
-            ls -la
+            pwd
             echo "SG_BASE_URL is ${{ vars.SG_BASE_URL }}"
+            echo "SG_DASHBOARD_URL is ${{ vars.SG_DASHBOARD_URL }}"
+            echo "SG_API_TOKEN is ${{ secrets.SG_API_TOKEN }}"
+            echo "SG_ORG is ${{ secrets.SG_ORG }} "
+            echo "SG_WORKFLOW_GROUP is ${{ secrets.SG_WORKFLOW_GROUP }}"
