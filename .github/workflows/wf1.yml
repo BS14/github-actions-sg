@@ -12,17 +12,22 @@ jobs:
       - name: Executing remote ssh command using ssh key
         uses: appleboy/ssh-action@v1.0.0
         env:
-          SG_BASE_URL: "https://api.app.stackguardian.io"
-          SG_API_TOKEN: 
+          SG_BASE_URL: ${{ vars.SG_BASE_URL }}
+          SG_API_TOKEN: ${{ secrets.SG_API_TOKEN }}
+          SG_DASHBOARD_URL: ${{ vars.SG_DASHBOARD_URL }}
+          SG_ORG: ${{ secrets.SG_ORG }}
+          SG_WORKFLOW_GROUP: ${{ secrets.SG_WORKFLOW_GROUP }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           passphrase: ${{ secrets.PASSPHRASE }}
+          envs: SG_BASE_URL, SG_API_TOKEN, SG_DASHBOARD_URL, SG_ORG, SG_WORKFLOW_GROUP
           script: |
-            pwd
-            ls
+            export SG_BASE_URL=$SG_BASE_URL
+            export SG_API_TOKEN=$SG_API_TOKEN
+            export SG_DASHBOARD_URL=$SG_DASHBOARD_URL
             echo "SG_BASE_URL is ${{ vars.SG_BASE_URL }}"
             echo "SG_DASHBOARD_URL is ${{ vars.SG_DASHBOARD_URL }}"
             echo "SG_API_TOKEN is ${{ secrets.SG_API_TOKEN }}"
