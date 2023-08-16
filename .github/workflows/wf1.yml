@@ -28,4 +28,4 @@ jobs:
             echo "SG_API_TOKEN is ${{ secrets.SG_API_TOKEN }}"
             echo "SG_ORG is ${{ secrets.SG_ORG }} "
             echo "SG_WORKFLOW_GROUP is ${{ secrets.SG_WORKFLOW_GROUP }}"
-            ./sg-cli stack create --org ${{ secrets.SG_ORG }} --workflow-group ${{ secrets.SG_WORKFLOW_GROUP }} -- payload.json
+            bash sg-cli stack create --org ${{ secrets.SG_ORG }} --workflow-group ${{ secrets.SG_WORKFLOW_GROUP }} -- payload.json
