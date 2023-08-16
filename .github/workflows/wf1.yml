@@ -8,11 +8,17 @@ on:
 jobs:
   run_scripts:
     runs-on: ubuntu-latest
-    env: 
-      PAYLOAD: sg-cli
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run Bash Script
-        run: |
-          bash main.sh "$PAYLOAD"
+      - name: Executing remote ssh command using ssh key
+        uses: appleboy/ssh-action@v1.0.0
+        env:
+          SG_BASE_URL: "https://api.app.stackguardian.io"
+          SG_API_TOKEN: 
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            whoami
+            ls -la
