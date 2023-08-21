@@ -1,0 +1,30 @@
+name: Run SG-CLI with Payload
+on:
+  push:
+    branches:
+      - main
+jobs:
+  run_scripts:
+    runs-on: ubuntu-latest
+    env:
+      SG_BASE_URL: ${{ vars.SG_BASE_URL }}
+      SG_API_TOKEN: ${{ secrets.SG_API_TOKEN }}
+      SG_DASHBOARD_URL: ${{ vars.SG_DASHBOARD_URL }}
+      SG_ORG: ${{ secrets.SG_ORG }}
+      SG_WORKFLOW_GROUP: ${{ secrets.SG_WORKFLOW_GROUP }}
+    steps:
+      - name: Checkout code
+        uses: action/checkout@v2
+    
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget jq curl
+
+      - name: Download sg-cli script
+        run: |
+          wget https://raw.githubusercontent.com/StackGuardian/sg-cli/main/shell/sg-cli -O sg-cli
+    
+      - name: Run sg-cli stack create
+        run: |
+          bash sg-cli stack create --org ${{ secrets.SG_ORG }} --workflow-group ${{ secrets.SG_WORKFLOW_GROUP }} -- payload.json  
